@@ -62,12 +62,12 @@ const
     require(
       "./libevm-chains-info");
 /* global
-     _rpc_backends_get */
+     _evm_chains_db_path_get */
 const
   _evm_chains_db_path_get =
     _libevm_chains_info._evm_chains_db_path_get;
 /* global
-     _rpc_backends_get */
+     _evm_chains_info_get */
 const
   _evm_chain_info_get =
     _libevm_chains_info._evm_chain_info_get;
@@ -77,10 +77,10 @@ const
   _rpc_backend_get =
     _libevm_chains_info._rpc_backend_get;
 /* global
-     _rpc_backends_get */
+     _evm_chains_info */
 const
-  _rpc_backends_get =
-    _rpc_backends_get;
+  _evm_chains_info =
+    _libevm_chains_info._evm_chains_info;
 
 function
   _global_variables() {
@@ -408,12 +408,28 @@ function
   if ( "s" in _argv ) {
     selection_method =
       _argv[
-        "u"];
+        "s"];
   }
-  if ( "user-level" in _argv ) {
-    user_level =
+  if ( "selection-method" in _argv ) {
+    selection_method =
       _argv[
-        "user-level"];
+        "selection-method"];
+  }
+  if ( "k" in _argv ) {
+    api_key =
+      "y";
+  }
+  if ( "api-key" in _argv ) {
+    api_key =
+      "y";
+  }
+  if ( "a" in _argv ) {
+    networks_all =
+      "y";
+  }
+  if ( "networks-all" in _argv ) {
+    networks_all =
+      "y";
   }
   if ( "v" in _argv ) {
     verbose =
@@ -439,13 +455,49 @@ function
     "browser";
   _argv =
     _argv_url_get();
-  in_file =
+  target_chain =
     _argv_url_get(
-      "in_file")[
+      "chain")[
         0];
-  target_planet =
+  target_command =
     _argv_url_get(
-      "out_txt_prefix")[
+      "command")[
+        0];
+  input_type =
+    _argv_url_get(
+      "input_type")[
+        0];
+  output_type =
+    _argv_url_get(
+      "output_type")[
+        0];
+  input_type =
+    _argv_url_get(
+      "input_type")[
+        0];
+  retrieval_mode =
+    _argv_url_get(
+      "retrieval_mode")[
+        0];
+  user_level =
+    _argv_url_get(
+      "user_level")[
+        0];
+  db_paths.push(
+    _argv_url_get(
+      "db_path")[
+        0]);
+  selection_method =
+    _argv_url_get(
+      "selection_method")[
+        0];
+  api_key =
+    _argv_url_get(
+      "api_key")[
+        0];
+  networks_all =
+    _argv_url_get(
+      "networks_all")[
         0];
   quiet =
     _argv_url_get(
@@ -458,19 +510,22 @@ function
 
 _global_variables();
 if ( _cmdline_check(
-       "bin2txt.js") == true ) {
+       "evm-chains-info.js") == true ) {
   _cmdline_parse();
 }
 _overrides_set();
 _config_show();
 app_opts = [
-  in_file,
-  out_txt_prefix,
-  encoding_format,  
-  string_length,
-  buffer_size,
-  amount_only 
+  target_command,
+  input_type,
+  output_type,
+  retrieval_mode,
+  selection_mode,
+  api_key,
+  networks_all,
+  target_chain,
+  db_paths
 ];
-_bin2txt.apply(
+_evm_chains_info.apply(
   null,
   app_opts);
