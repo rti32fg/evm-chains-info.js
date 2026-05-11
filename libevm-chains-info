@@ -194,6 +194,170 @@ function _rpc_backends_get(
   return _rpcs;
 }
 
+function
+  _db_path_check(
+    _db_path) {
+  if ( ! _file_exists(
+       _db_path) ) {
+    const
+      _msg =
+        `Database at ` +
+        `'${_db_path}' does not exist.`;
+    _msg_error(
+      _msg,
+      1);
+  }
+}
+
+
+
+function
+  _db_get(
+    _db_path,
+    _input_type,
+    _output_type,
+    _selection_method,
+    _api_key,
+    _target_chain) {
+  let
+    _filter,
+    _filter_key,
+    _filter_output_type,
+    _result,
+    _rpcs,
+    _msg;
+  _filter_output_type =
+    _output_type;
+  if ( _input_type == "id" ) {
+    _filter_key =
+      "chainId";
+    _filter_key =
+      _target_chain;
+  }
+  else if ( _input_type == "testnet" ) {
+    _msg =
+      "Like I have to agg a tag.";
+    _msg_info(
+      _msg);
+  }
+  if ( _output_type == "id"  ) {
+    _filter_output_type =
+      "chainId";
+  }
+  if ( _networks_all == "y" ) {
+    _filter =
+      _all_get(
+        _filter_output_type);
+  }
+  else if ( _networks_all == "n" ) {
+    // this doesnt work the same in
+    // javascript as in bash i suppose.
+    // _filter =
+    //   _filter_get(
+    //     _filter_key,
+    //     _filter_value,
+    //     _filter_output_type);
+    _db =
+      _json_read(
+        _db_path);
+  }
+}
+
+function
+  _evm_chains_info_get(
+    _retrieval_mode,
+    _input_type,
+    _db_paths) {
+  let
+    _db,
+    _msg,
+    _networks_total;
+  _networks_total =
+    0;
+  if ( _retrieval_mode == "offline" ) {
+    for ( _db_path of _db_paths ) {
+      _msg =
+        `Looking in '${_db_path}'.`;
+      _msg_info(
+        _msg);
+      _db_path_check(
+        _db_path);
+      if ( _input_type != "amount" ) {
+        _db_get(
+	  _db_path,
+          _input_type,
+          _output_type,
+          _selection_method,
+          _api_key,
+          _target_chain);
+      }
+      else if ( _input_type == "amount" ) {
+        _db =
+          _json_read(
+            _db_path);
+	_networks_total =
+          _db.length;
+      }
+    }
+    if ( _input_type != "amount" ) {
+      if ( _results.length == 0 ) {
+        _msg =
+          `No results found for network ` +
+          `'${_target_chain}'.`;
+        _msg_error(
+          _msg,
+          0);
+      }
+      for ( _result of _results ) {
+        console.log(
+          _result);
+        if ( _selection_method != "all" ) {
+          break
+        }
+      }
+    }
+    else if ( _input_type == "amount" ) {
+      console.log(
+        _networks_total);
+    }
+  }
+  else if ( _retrieval_mode == "online" ) {
+    _msg =
+      `About to implement it probably.`;
+    _msg_error(
+      _msg,
+      1);
+  }
+}
+
+function
+  _evm_chains_info_set(
+    _hurr) {
+  if ( _input_type == "id" ) {
+    console.log(
+      _hurr);
+  }
+}
+
+function
+  _evm_chains_info(
+    _target_command,
+    _input_type,
+    _output_type,
+    _retrieval_mode,
+    _selection_mode,
+    _api_key,
+    _networks_all,
+    _target_chain,
+    _db_paths) {
+  if ( target_command == "get" ) {
+    _evm_chains_info_get(
+      _retrieval_mode,
+      _input_type,
+      _db_paths);
+  }
+}
+
 module.exports = {
   _evm_chains_db_path_get:
     _evm_chains_db_path_get,
