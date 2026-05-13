@@ -152,8 +152,6 @@ function
     }
   }
   if ( _user == false ) {
-    console.log(
-      process.env.NODE_PATH);
     const
       _lib =
         _lib_get();
@@ -227,8 +225,8 @@ function
       `of type '${_db_types}'.`;
     _msg_info(
       _msg);
-    console.log(
-      _db);
+    // console.log(
+    //   _db);
   for ( _chain_info of _db) {
     if ( _chain_info["chainId"] == _chain_id ) {
       return _chain_info;
@@ -406,13 +404,14 @@ function
       _db =
         _json_read(
           _db_path);
-    console.log(
-      _db);
+    // console.log(
+    //   _db);
     _results =
       [];
     console.log(
       _results);
   }
+  return _db;
 }
 
 function
@@ -540,10 +539,9 @@ function
   let
     _db,
     _db_path,
+    _entry,
     _msg,
-    _networks_total,
-    _result,
-    _results;
+    _networks_total;
   _networks_total =
     0;
   if ( _retrieval_mode == "offline" ) {
@@ -555,7 +553,7 @@ function
       _db_path_check(
         _db_path);
       if ( _input_type != "amount" ) {
-        _results =
+        _db =
           _db_get(
             _db_path,
             _input_type,
@@ -569,12 +567,14 @@ function
         _db =
           _json_read(
             _db_path);
-         _networks_total =
+        _networks_total =
           _db.length;
       }
     }
     if ( _input_type != "amount" ) {
-      if ( _results.length == 0 ) {
+      _networks_total =
+        _db.length;
+      if ( _db.length == 0 ) {
         _msg =
           `No results found for network ` +
           `'${_target_chain}'.`;
@@ -582,9 +582,9 @@ function
           _msg,
           0);
       }
-      for ( _result of _results ) {
+      for ( _entry of _db ) {
         console.log(
-          _result);
+          _entry);
         if ( _selection_method != "all" ) {
           break;
         }
