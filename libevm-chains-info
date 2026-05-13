@@ -756,7 +756,7 @@ function
     _input_type) {
   const
     _msg =
-      `Setting value for type '${_input_type}'`.
+      `Setting value for type '${_input_type}'.`;
   if ( _input_type == "id" ) {
     _msg_info(
       _msg);

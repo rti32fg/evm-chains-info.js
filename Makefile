@@ -86,20 +86,20 @@ clean:
 	  -rf \
 	  "node_modules"
 
-install: install-scripts install-doc install-examples install-man
+install: install-npm install-scripts install-doc install-examples install-man
 
 install-scripts:
 
 	$(_INSTALL_DIR) \
-	  "$(LIB_DIR)/node"
+	  "$(LIB_DIR)"
 	for _file in $(NPM_FILES); do
 	  $(_INSTALL_FILE) \
 	    "$${_file}" \
-	    "$(LIB_DIR)/node/$${_file}"; \
+	    "$(LIB_DIR)/nodejs/$${_file}"; \
 	done
 	ln \
 	  -s \
-	  "$(PREFIX)/lib/$(_PROJECT_NPM)/node/lib$(_PROJECT_NPM)" \
+	  "$(PREFIX)/lib/$(_PROJECT_NPM)/nodejs/lib$(_PROJECT_NPM)" \
 	  "$(LIB_DIR)/$(_PROJECT_NPM)-js" || \
 	true
 
@@ -187,7 +187,12 @@ install-npm:
 	ln \
 	  -s \
 	  "$(NODE_DIR)" \
-	  "$(LIB_DIR)" || \
+	  "$(LIB_DIR)/nodejs" || \
+	true
+	ln \
+	  -s \
+	  "$(NODE_DIR)/lib$(_PROJECT_NPM)" \
+	  "$(LIB_DIR)/$(_PROJECT_NPM)-js" || \
 	true
 
 publish-npm:
