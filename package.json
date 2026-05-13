@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "crash-js-webpack":
-      "^0.0.3",
+      "^0.0.4",
     "flatted":
       "^3.2.9",
     "eslint":
@@ -77,7 +77,7 @@
   },
   "dependencies": {
     "crash-js":
-      "^0.1.91",
+      "^0.1.92",
     "ethereum-data":
       "^0.0.3",
     "yargs":
