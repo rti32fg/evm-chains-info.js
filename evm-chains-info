@@ -115,6 +115,11 @@ function
   app_opts =
     [];
   /* global
+       runtime_environment:
+         writable */
+  runtime_environment =
+    "";
+  /* global
        call_date:
          writable */
   call_date =
