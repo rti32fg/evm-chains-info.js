@@ -89,6 +89,8 @@ const
      _data_get */
 /* eslint-disable-next-line
      no-global-assign */
+/* eslint-disable-next-line
+     no-unused-vars */
 const
   _data_get =
     _ethereum_data_module._data_get;
@@ -169,7 +171,8 @@ function
   _evm_chain_info_get(
     _chain_id,
     _chain_info,
-    _db_path) {
+    _db_path,
+    _db_type) {
   let
     _data,
     _msg;
@@ -206,6 +209,9 @@ function
     _db =
       _json_read(
         _db_path);
+    _data =
+      _data_get(
+        _chain_id);
   for ( _chain_info of _db) {
     if ( _chain_info["chainId"] == _chain_id ) {
       return _chain_info;
@@ -220,7 +226,8 @@ function
   _rpc_backend_get(
     _network_chain_id,
     _selection_method,
-    _db_path) {
+    _db_path,
+    _db_type) {
   if ( _network_chain_id == undefined ) {
     const
       _msg =
@@ -238,6 +245,10 @@ function
       _evm_chains_db_path_get(
         false);
   }
+  if ( _db_type == undefined ) {
+    _db_type =
+      "file";
+  }
   const
     _chain_id =
       Number(
@@ -246,7 +257,8 @@ function
     _chain_info =
       _evm_chain_info_get(
         _chain_id,
-        _db_path);
+        _db_path,
+        _db_type);
   if ( _selection_method == "kirsh" ) {
     return _chain_info["rpc"][0];
   }
@@ -328,7 +340,7 @@ function
     _filter,
     _filter_key,
     _filter_output_type,
-    _rpcs,
+    _results,
     _msg;
   _filter_output_type =
     _output_type;
@@ -358,6 +370,10 @@ function
     _filter =
       _all_get(
         _filter_output_type);
+    console.log(
+      _filter);
+    _results =
+      []
   }
   else if ( _networks_all == "n" ) {
     // this doesnt work the same in
@@ -373,8 +389,10 @@ function
           _db_path);
     console.log(
       _db);
+    _results =
+      []
     console.log(
-      _rpcs);
+      _results);
   }
 }
 
