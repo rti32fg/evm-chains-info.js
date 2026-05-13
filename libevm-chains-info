@@ -360,10 +360,6 @@ function
   _db_path_auto_detect() {
   let
     _chains,
-    _db,
-    _db_split,
-    _db_fallback,
-    _db_fallback_split,
     _type_primary,
     _type_fallback,
     _msg;
@@ -379,25 +375,29 @@ function
     _type_fallback =
       "user";
   }
-  _db =
-    _evm_chains_db_path_get(
-      _type_primary,
-      "",
-      "unified");
-  _db_split =
-    _evm_chains_db_path_get(
-      _type_primary,
-      _chain_id,
-      "split");
-  _db_fallback =
-    _db_default_path_get(
-      _type_fallback,
-      "",
-      "unified");
-  _db_fallback_split =
-    _db_default_path_get(
-      _type_fallback,
-      "split");
+  const
+    _db =
+      _evm_chains_db_path_get(
+        _type_primary,
+        "",
+        "unified");
+  const
+    _db_split =
+      _evm_chains_db_path_get(
+        _type_primary,
+        _chain_id,
+        "split");
+  const
+    _db_fallback =
+      _db_default_path_get(
+        _type_fallback,
+        "",
+        "unified");
+  const
+    _db_fallback_split =
+      _db_default_path_get(
+        _type_fallback,
+        "split");
   if ( _file_exists(
            _db_split) ) {
     db_paths.push(
