@@ -183,7 +183,7 @@ install-npm:
 	    "$${_npm_opts[@]}" \
 	    "$(_PROJECT_NPM)-$${_version}.tgz"; \
 	$(_INSTALL_DIR) \
-	  "$(DESTDIR)$(PREFIX)/lib"; \
+	  "$(DESTDIR)$(PREFIX)/lib/$(_PROJECT_NPM)"; \
 	ln \
 	  -s \
 	  "$(NODE_DIR)" \
