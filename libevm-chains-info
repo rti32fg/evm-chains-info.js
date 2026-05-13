@@ -28,6 +28,9 @@
  *     If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* eslint-disable
+     no-unused-vars */
+
 /* global
      chain_id */
 /* global 
@@ -87,10 +90,6 @@ const
       "ethereum-data");
 /* global
      _data_get */
-/* eslint-disable-next-line
-     no-global-assign */
-/* eslint-disable-next-line
-     no-unused-vars */
 const
   _data_get =
     _ethereum_data_module._data_get;
@@ -172,7 +171,7 @@ function
     _chain_id,
     _chain_info,
     _db_path,
-    _db_type) {
+    _db_types) {
   let
     _data,
     _msg;
@@ -195,7 +194,8 @@ function
           _chain_id);
       _msg =
         `Displaying data for ` +
-        `chain '${_chain_id}'.`;
+        `chain '${_chain_id}' `+
+        `of type '${_db_types}'.`;
       _msg_info(
         _msg);
       console.log(
@@ -209,9 +209,17 @@ function
     _db =
       _json_read(
         _db_path);
-    _data =
-      _data_get(
-        _chain_id);
+    // _data =
+    //   _data_get(
+    //     _chain_id);
+    _msg =
+      `Displaying data for ` +
+      `chain '${_chain_id}' `+
+      `of type '${_db_types}'.`;
+    _msg_info(
+      _msg);
+    console.log(
+      _db);
   for ( _chain_info of _db) {
     if ( _chain_info["chainId"] == _chain_id ) {
       return _chain_info;
@@ -227,7 +235,7 @@ function
     _network_chain_id,
     _selection_method,
     _db_path,
-    _db_type) {
+    _db_types) {
   if ( _network_chain_id == undefined ) {
     const
       _msg =
@@ -245,9 +253,9 @@ function
       _evm_chains_db_path_get(
         false);
   }
-  if ( _db_type == undefined ) {
-    _db_type =
-      "file";
+  if ( _db_types == undefined ) {
+    _db_types.push(
+      "system-db");
   }
   const
     _chain_id =
@@ -258,7 +266,7 @@ function
       _evm_chain_info_get(
         _chain_id,
         _db_path,
-        _db_type);
+        _db_types);
   if ( _selection_method == "kirsh" ) {
     return _chain_info["rpc"][0];
   }
@@ -373,7 +381,9 @@ function
     console.log(
       _filter);
     _results =
-      []
+      [];
+    console.log(
+      _results);
   }
   else if ( _networks_all == "n" ) {
     // this doesnt work the same in
@@ -390,7 +400,7 @@ function
     console.log(
       _db);
     _results =
-      []
+      [];
     console.log(
       _results);
   }
@@ -413,7 +423,6 @@ function
 function
   _db_path_auto_detect() {
   let
-    _chains,
     _type_primary,
     _type_fallback,
     _msg;
@@ -632,6 +641,8 @@ function
 }
 
 module.exports = {
+  _data_get:
+    _data_get,
   _db_path_auto_detect:
     _db_path_auto_detect,
   _evm_chains_db_path_get:
@@ -648,4 +659,4 @@ module.exports = {
     _rpc_backend_get,
   _rpc_backends_get:
     _rpc_backends_get
-}
+};
