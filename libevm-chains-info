@@ -394,14 +394,15 @@ function
         "split");
   const
     _db_fallback =
-      _db_default_path_get(
+      _evm_chains_db_path_get(
         _type_fallback,
         "",
         "unified");
   const
     _db_fallback_split =
-      _db_default_path_get(
+      _evm_chains_db_path_get(
         _type_fallback,
+        _chain_id,
         "split");
   if ( _file_exists(
            _db_split) ) {
