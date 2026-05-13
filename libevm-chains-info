@@ -570,8 +570,8 @@ module.exports = {
     _db_path_auto_detect,
   _evm_chains_db_path_get:
     _evm_chains_db_path_get,
-  _evm_chain_info:
-    _evm_chain_info,
+  _evm_chains_info:
+    _evm_chains_info,
   _evm_chain_info_get:
     _evm_chain_info_get,
   _evm_chain_info_set:
