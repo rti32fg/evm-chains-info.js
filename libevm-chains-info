@@ -94,7 +94,6 @@ function
     _chain_id,
     _format) {
   let
-    _db_exists,
     _db_name,
     _path;
   if ( typeof(
@@ -301,6 +300,13 @@ function
 }
 
 function
+  _all_get(
+    _filter_output_type) {
+  console.log(
+    _filter_output_type);
+}
+
+function
   _db_get(
     _db_path,
     _input_type,
@@ -350,9 +356,10 @@ function
     //     _filter_key,
     //     _filter_value,
     //     _filter_output_type);
-    _db =
-      _json_read(
-        _db_path);
+    const
+      _db =
+        _json_read(
+          _db_path);
   }
 }
 
@@ -470,9 +477,11 @@ function
 
 function
   _evm_chains_info_get(
+    _target_chain,
     _retrieval_mode,
     _input_type,
     _selection_method,
+    _networks_all,
     _db_paths) {
   let
     _db,
@@ -493,18 +502,19 @@ function
       if ( _input_type != "amount" ) {
         _results =
           _db_get(
-	    _db_path,
+            _db_path,
             _input_type,
             _output_type,
             _selection_method,
             _api_key,
+            _networks_all,
             _target_chain);
       }
       else if ( _input_type == "amount" ) {
         _db =
           _json_read(
             _db_path);
-	_networks_total =
+         _networks_total =
           _db.length;
       }
     }
@@ -565,6 +575,7 @@ function
       _retrieval_mode,
       _input_type,
       _selection_method,
+      _networks_all,
       _db_paths);
   }
   else if ( _target_command == "set" ) {
