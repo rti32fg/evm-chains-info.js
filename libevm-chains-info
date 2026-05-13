@@ -207,17 +207,31 @@ function
 function
   _evm_chain_info_get(
     _chain_id,
-    _chain_info,
     _db_path,
+    _user_level,
+    _format,
     _db_types) {
   let
+    _chain_info,
     _data,
     _msg;
+  if ( typeof(
+         _user_level) == "undefined" ) {
+    _user_level =
+      false;
+  }
+  if ( typeof(
+         _format) == "undefined" ) {
+    _format =
+      "split";
+  }
   if ( typeof(
          _db_path) == "undefined" ) {
     _db_path =
       _evm_chains_db_path_get(
-        false);
+        _user_level,
+        _chain_id,
+        _format);
   }
   const
     _db_exists =
@@ -273,8 +287,10 @@ function
     _network_chain_id,
     _selection_method,
     _db_path,
+    _user_level,
     _db_types) {
-  if ( _network_chain_id == undefined ) {
+  if ( typeof(
+         _network_chain_id) == "undefined" ) {
     const
       _msg =
        "Network's ChainID not specified.";
@@ -282,18 +298,27 @@ function
       _msg,
       1);
   }
-  if ( _selection_method == undefined ) {
+  if ( typeof(
+         _selection_method) == "undefined" ) {
     _selection_method =
       "kirsh";
   }
-  if ( _db_path == undefined ) {
+  if ( typeof(
+         _db_path) == "undefined" ) {
     _db_path =
       _evm_chains_db_path_get(
         false);
   }
-  if ( _db_types == undefined ) {
-    _db_types.push(
-      "system-db");
+  if ( typeof(
+         _db_types) == "undefined" ) {
+    _db_types = [
+      "node",
+      "system"
+    ];
+  }
+  if ( _user_level == undefined ) {
+    _user_level =
+      true;
   }
   const
     _chain_id =
@@ -304,6 +329,7 @@ function
       _evm_chain_info_get(
         _chain_id,
         _db_path,
+        _user_level,
         _db_types);
   if ( _selection_method == "kirsh" ) {
     return _chain_info["rpc"][0];
