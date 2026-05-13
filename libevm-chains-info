@@ -114,24 +114,27 @@ function
     _db_path,
     _msg;
   if ( typeof(
-         _user) == "undefined" ) {
+         _user) == "undefined" ||
+       _user == "" ) {
     _user =
-      false;
+      "n";
   }
   if ( typeof(
-         _chain_id) == "undefined" ) {
+         _chain_id) == "undefined" ||
+       _chain_id == "" ) {
     _chain_id =
       "";
   }
   if ( typeof(
-         _format) == "undefined" ) {
+         _format) == "undefined" ||
+      _format == "" ) {
     if ( _chain_id != "" ) {
       _format =
         "split";
     }
     else if ( _chain_id == "" ) {
-    _format =
-      "unified";
+      _format =
+        "unified";
     }
   }
   _msg =
@@ -149,7 +152,7 @@ function
     _db_name =
       `${_chain_id}.json`;
   }
-  if ( _user == true ) {
+  if ( _user == "y" ) {
     const
       _home_dir =
         _homedir_get();
@@ -173,17 +176,23 @@ function
       _msg_info(
         _msg);
     }
-    if ( _db_exists == false ) {
+    else if ( _db_exists == false ) {
       _msg =
         `Database '${_db_path}' ` +
         "not found";
       _msg_info(
         _msg);
-      _user =
-        false;
+      // _user =
+      //   "n";
+    }
+    else {
+      _msg =
+        "wat";
+      _msg_error(
+        _msg);
     }
   }
-  else if ( _user == false ) {
+  else if ( _user == "n" ) {
     const
       _lib =
         _lib_get();
@@ -570,14 +579,28 @@ function
            _db_split) ) {
     db_paths.push(
       _db_split);
+    _msg =
+      `Found database ` +
+      `'${_db_split}', ` +
+      `adding.`;
+    _msg_info(
+      _msg);
   }
-  else {
+  else if ( ! _file_exists(
+                _db_split) ) {
     _msg =
       `Default per-network database ` +
       `'${_db_split}' ` +
       `not found, trying '${_db}'.`;
     _msg_info(
       _msg);
+  }
+  else {
+    _msg =
+      `wat`;
+    _msg_error(
+      _msg,
+      1);
   }
   if ( _file_exists(
          _db) ) {
