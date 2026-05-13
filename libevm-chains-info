@@ -172,7 +172,7 @@ function
         false;
     }
   }
-  if ( _user == false ) {
+  else if ( _user == false ) {
     const
       _lib =
         _lib_get();
