@@ -433,8 +433,10 @@ function
       _json_read(
         _db_path);
     _msg =
-      "Found 'Showing results for all networks " +
+      "Showing results for all networks " +
       `with filter '${_filter}'.`;
+    _msg_info(
+      _msg);
     return _db;
   }
   else if ( _networks_all == "n" ) {
