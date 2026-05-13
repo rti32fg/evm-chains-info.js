@@ -403,23 +403,30 @@ function
     _filter_output_type =
       "chainId";
   }
+  else if ( _output_type == "rpc"  ) {
+    _filter_output_type =
+      _output_type;
+  }
   if ( _networks_all == "y" ) {
-    _msg =
-      "Showing results for all networks."
-    _msg_info(
-      _msg);
     _filter =
       _all_get(
         _filter_output_type);
-    console.log(
-      _filter);
+    _msg =
+      "Showing results for all networks " +
+      `with filter '${_filter}'.`;
+    _msg_info(
+      _msg);
+    _db =
+      _json_read(
+        _db_path);
+    _msg =
+      "Found 'Showing results for all networks " +
+      `with filter '${_filter}'.`;
+    return _db.length;
     _results =
       [];
     console.log(
       _results);
-    _db =
-      _json_read(
-        _db_path);
   }
   else if ( _networks_all == "n" ) {
     _msg =
@@ -434,8 +441,8 @@ function
     //     _filter_key,
     //     _filter_value,
     //     _filter_output_type);
-    _json_read(
-      _db_path);
+    // _json_read(
+    //   _db_path);
     const
       _db =
         _json_read(
@@ -629,8 +636,8 @@ function
       }
       for ( _entry of _db ) {
         if ( _entry['chainId'] == _target_chain ) {
-          console.log(
-            _entry);
+          // console.log(
+          //   _entry);
           if ( _selection_method != "all" ) {
             break;
           }
