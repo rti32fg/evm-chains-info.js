@@ -538,7 +538,7 @@ function
     _input_type,
     _output_type,
     _retrieval_mode,
-    _selection_mode,
+    _selection_method,
     _api_key,
     _networks_all,
     _target_chain,
