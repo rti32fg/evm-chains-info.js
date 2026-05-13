@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "crash-js-webpack":
-      "^0.0.4",
+      "^0.0.5",
     "flatted":
       "^3.2.9",
     "eslint":
