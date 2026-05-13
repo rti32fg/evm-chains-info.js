@@ -91,6 +91,11 @@ const
 const
   _db_path_auto_detect =
     _libevm_chains_info._db_path_auto_detect;
+/* global
+     _input_type_auto_detect */
+const
+  _input_type_auto_detect =
+    _libevm_chains_info._input_type_auto_detect;
 
 function
   _global_variables() {
