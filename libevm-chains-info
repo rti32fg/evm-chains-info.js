@@ -628,11 +628,13 @@ function
           0);
       }
       for ( _entry of _db ) {
-        // console.log(
-        //   _entry);
-        if ( _selection_method != "all" ) {
-          break;
-        }
+        if ( _entry['chainId'] == _target_chain ) {
+          console.log(
+            _entry);
+          if ( _selection_method != "all" ) {
+            break;
+          }
+	}
       }
     }
     else if ( _input_type == "amount" ) {
